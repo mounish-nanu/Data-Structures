@@ -106,7 +106,7 @@ class LinkedList:
             print("delete successful")  # confirm deletion
             self.printLL()  # print the updated linked list
 
-# Example usage
+
 LL = LinkedList()  # create an instance of LinkedList
 LL.insertAtStart(5)  # insert 5 at the start
 LL.insertAtIndex(1, 6)  # insert 6 at index 1
