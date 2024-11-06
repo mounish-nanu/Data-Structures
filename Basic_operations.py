@@ -116,7 +116,7 @@ class LinkedList:
             previous = current
             current = following
         self.head = previous
-        self.printLL()
+        self.printLL() #print reversed linked list
         return previous
     
 
@@ -127,8 +127,8 @@ LL.insertAtIndex(1, 6)  # insert 6 at index 1
 LL.insertAtIndex(2, 7)  # insert 7 at index 2
 LL.insertAtIndex(3, 30)  # insert 30 at index 3
 LL.insertAtIndex(4, 31)  # insert 31 at index 4
-# LL.printLL()  # print the linked list
-# LL.search(5)  # search for the value 5 in the linked list
-# LL.lengthOfLinkedList()  # print the length of the linked list
-# LL.deleteAnElement(2)  # delete element at index 2
+LL.printLL()  # print the linked list
+LL.search(5)  # search for the value 5 in the linked list
+LL.lengthOfLinkedList()  # print the length of the linked list
+LL.deleteAnElement(2)  # delete element at index 2
 LL.reversingLL()
