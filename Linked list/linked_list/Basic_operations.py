@@ -1,45 +1,38 @@
-# Basic Node template 
 class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
 
-        
-# Parent class where the methods for basic operations are declared
 class LinkedList: 
     def __init__(self):
         self.head = None  # initialize the head of the linked list
 
-    # insertAtStart() method is defined to insert the element at the start which takes "data" as input 
-    # which is the node value
     def insertAtStart(self, data):
-        newNode = Node(data)  # we create a new node with the data
+        newNode = Node(data)  # create a new node with the data
 
         if self.head is None:
             self.head = newNode  # if linked list is empty, we add the newNode to head
         else:
-            newNode.next = self.head  # else we perform the following: assume there is a linked list with head->2->4
-            self.head = newNode        # we are to insert 5
-        return                          # step 1: (head, 5)->2->4 it means head and 5 points to 2
-                                         # step 2: head->5->2->4 head is pointed to 5 and the rest remains
+            newNode.next = self.head  # link newNode to the current head
+            self.head = newNode        # update head to point to newNode
+        return  # end of insertAtStart method
     
-    # insertAtIndex() method is defined to insert the element at a particular index
     def insertAtIndex(self, index, data):
         newNode = Node(data)  # create a new node with the data
         if index == 0:
             self.insertAtStart(data)  # if index is 0, call insertAtStart
+            return  # end of insertAtIndex if inserted at start
         i = 0
         current = self.head
         while (current is not None and i + 1 != index):
-            i = i + 1
-            current = current.next
+            i += 1  # increment index
+            current = current.next  # move to next node
         if current is not None:
             newNode.next = current.next  # link the new node to the next node
             current.next = newNode        # insert the new node in the list
         else:
             print("index not found")      # if the current node is None, index is out of bounds
 
-    # insertAtEnd() method is defined to insert the element at the end of the list
     def insertAtEnd(self, data):
         newNode = Node(data)  # create a new node with the data
 
@@ -51,9 +44,8 @@ class LinkedList:
             current = current.next  # traverse to the last node
 
         current.next = newNode  # link the last node to the new node
-        return
+        return  # end of insertAtEnd method
     
-    # search() method is defined to search for a value in the linked list
     def search(self, data):
         if self.head is None:
             print("Linked list is empty")  # check if the linked list is empty
@@ -61,8 +53,7 @@ class LinkedList:
         current = self.head
         index = 0
 
-        while (current.next is not None):
-            # print(current.value)  # optional: print current value during search
+        while (current is not None):  # loop through each node
             if current.value == data:
                 print("value found at index", + index)  # if value is found, print index
                 return
@@ -72,21 +63,62 @@ class LinkedList:
         print("value not found in linked list")  # if we reach the end without finding the value
         return
     
-    # printLL() method is defined to print the values of the linked list
     def printLL(self):
         self.length = 0  # initialize length to 0
         if self.head is None:
             print("Linked list is empty")  # check if the linked list is empty
         else:
             current = self.head
-            while (current is not None):
+            while (current is not None):  # loop through each node
                 self.length += 1  # increment length for each node
                 print(current.value)  # print the value of the current node
                 current = current.next  # move to the next node
 
-    # lengthOfLinkedList() method is defined to print the length of the linked list
     def lengthOfLinkedList(self):
         print(self.length)  # print the total length of the linked list
+
+    def deleteAnElement(self, i):
+        current = self.head  # start with the head of the list
+        k = 0  # initialize index counter
+        # Check if the list is empty
+        if current is None:
+            print("Linked list is empty")  # handle empty list case
+            return
+
+        # Traverse the list to find the node just before the one to delete
+        if i == 0:
+            self.head = current.next  # if deleting the head, update head to next node
+            print("delete successful")  # confirm deletion
+            return
+
+        # Initialize previous node tracker
+        prev = None  
+        while (current is not None and k < i):
+            prev = current  # keep track of the previous node
+            current = current.next  # move to the next node
+            k += 1  # increment index counter
+
+        # If current is None, the index is out of bounds
+        if current is None:
+            print("index out of bounds")  # index not found case
+        else:
+            prev.next = current.next  # bypass the current node to delete it
+            print("delete successful")  # confirm deletion
+            self.printLL()  # print the updated linked list
+    
+    def reversingLL(self):
+        previous = None
+        current = self.head
+        following = self.head
+        while(current!=None):
+            following = following.next
+            current.next = previous
+            previous = current
+            current = following
+        self.head = previous
+        self.printLL() #print reversed linked list
+        return previous
+    
 
 
 LL = LinkedList()  # create an instance of LinkedList
@@ -98,3 +130,5 @@ LL.insertAtIndex(4, 31)  # insert 31 at index 4
 LL.printLL()  # print the linked list
 LL.search(5)  # search for the value 5 in the linked list
 LL.lengthOfLinkedList()  # print the length of the linked list
+LL.deleteAnElement(2)  # delete element at index 2
+LL.reversingLL()
